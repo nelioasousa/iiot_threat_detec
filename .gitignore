@@ -1,2 +1,6 @@
+# DataSense
 datasense/dataset/
 datasense/tools/
+
+# Python
+venv/
