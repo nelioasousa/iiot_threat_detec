@@ -1,0 +1,11 @@
+# Data exploration
+pandas
+seaborn
+matplotlib
+
+# ML
+scikit-learn
+
+# Notebooks
+ipykernel
+jupyterlab
