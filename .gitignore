@@ -1,6 +1,7 @@
 # DataSense
-datasense/dataset/
-datasense/tools/
+datasense/dataset/*.tar.xz
+datasense/dataset/*.csv
+datasense/dataset/checksums/
 
 # Python
 venv/
