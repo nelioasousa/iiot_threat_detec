@@ -13,7 +13,7 @@ for tp in ("attack", "benign"):
         columns = next(csv_data)
         padding = max(len(c) for c in columns)
         for entry_idx, entry in enumerate(csv_data):
-            if entry_idx == 30000:
+            if entry_idx == 1000:
                 for colm, data in zip(columns, entry):
                     print(f">>> {colm.rjust(padding, "_")} : {data}")
     print(f"\nSIZE: {entry_idx + 1}", end=("\n\n\n" if tp == "attack" else "\n"))
