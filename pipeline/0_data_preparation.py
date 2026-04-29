@@ -1,18 +1,20 @@
 import csv
 from pathlib import Path
 from ast import literal_eval
-import pandas as pd
 from collections.abc import Sequence
+import pandas as pd
 
 
 RAW_BENIGN_DATA_PATH = Path("datasense/dataset/benign_samples_1sec.csv")
 RAW_ATTACK_DATA_PATH = Path("datasense/dataset/attack_samples_1sec.csv")
+
 CONVERTERS = {
     "network_protocols_dst": literal_eval,
     "network_protocols_src": literal_eval,
     "network_ports_dst": literal_eval,
     "network_ports_src": literal_eval,
 }
+
 DROP_COLUMNS = frozenset([
     "device_mac", "timestamp", "timestamp_start", "timestamp_end",
     "log_data-ranges_avg", "log_data-ranges_max", "log_data-ranges_min",
@@ -28,17 +30,19 @@ DOS_DDOS_PORTS = frozenset([
     "557", "1883", "6668", "8000", "9595",
 ])
 
-IOT_KEEP_PROTOCOLS = frozenset(["mqtt", "data"])
+
+IOT_KEEP_PROTOCOLS = frozenset(["mqtt", "data", "json", "enip", "c1222", "rtsp", "ipdc", "rtcp", "rtsp", "tls", "tcp"])
+BROKER_KEEP_PROTOCOLS = frozenset(["json", "mqtt", "ipdc", "xlm", "ftp", "telnet", "rpc", "dns", "ntp", "tls"])
+GENERAL_KEEP_PROTOCOLS = frozenset(["tcp", "udp", "tls", "arp", "icmp", "icmpv6", "dhcp", "dhcpv6", "http", "json", "xlm", "telnet", "ftp", "rpc", "dns", "quic", "rtcp", "rtsp", "ssh", "rpc"])
+
 IOT_KEEP_PORTS = frozenset([
     "80", "443", "1883", "8883", "5683",
     "5684", "5671", "5672", "5353", "1900",
+    "21", "1153", "53", "67", "68", "546", "547",
+    "123", "135",
 ])
-
-BROKER_KEEP_PROTOCOLS = frozenset(["mqtt"])
 BROKER_KEEP_PORTS = frozenset([])
-
-GENERAL_KEEP_PROTOCOLS = 40
-GENERAL_KEEP_PORTS = frozenset([])
+GENERAL_KEEP_PORTS = DOS_DDOS_PORTS.union(IOT_KEEP_PORTS, BROKER_KEEP_PORTS)
 
 
 def get_csv_columns(csv_path: Path) -> list[str]:
@@ -62,7 +66,20 @@ def prepare_datasets():
     target_columns = [c for c in target_columns if c not in DROP_COLUMNS]
     benign_data = pd.read_csv(RAW_BENIGN_DATA_PATH, usecols=target_columns, converters=CONVERTERS)
     attack_data = pd.read_csv(RAW_ATTACK_DATA_PATH, usecols=target_columns, converters=CONVERTERS)
-    
+    full_data = pd.concat([benign_data, attack_data], ignore_index=True)
+    all_devices: list[str] = benign_data["device_name"].unique().tolist()
+    broker_device = ["mqtt-broker", "edge1"]
+    iot_devices = [
+        dev for dev in all_devices
+        if (
+            dev.endswith("-sensor")
+            or dev.endswith("-camera")
+            or dev.startswith("plug-")
+        )
+    ]
+    # General
+    # IoT
+    # Broker
     return
 
 
