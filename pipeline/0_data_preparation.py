@@ -103,6 +103,11 @@ def prepare_datasets():
 
 
 def run() -> int:
+    import argparse
+
+    parser = argparse.ArgumentParser(description="DataSense dataset preparation")
+    args = parser.parse_args()
+
     try:
         prepare_datasets()
         return 0
