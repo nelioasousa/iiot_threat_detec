@@ -86,7 +86,7 @@ def gen_dummies(
     return dataframe
 
 
-def prepare_datasets():
+def prepare_dataset():
     target_columns = get_csv_columns(RAW_BENIGN_DATA_PATH)
     target_columns = [c for c in target_columns if c not in DROP_COLUMNS]
     benign_data = pd.read_csv(RAW_BENIGN_DATA_PATH, usecols=target_columns, converters=CONVERTERS)
@@ -104,14 +104,26 @@ def prepare_datasets():
 
 def run() -> int:
     import argparse
+    import logging
+    import time
+
+    logging.basicConfig(level=logging.INFO, format="[%(name)s:%(levelname)8s] %(message)s")
+    logger = logging.getLogger("PIPE-S0")
 
     parser = argparse.ArgumentParser(description="DataSense dataset preparation")
-    args = parser.parse_args()
+    parser.parse_args()
 
     try:
-        prepare_datasets()
+        start = time.monotonic()
+        logger.info("Preparing dataset...")
+        prepare_dataset()
+        end = time.monotonic()
+        logger.info(f"Dataset prepared in {end - start:.2f} seconds")
         return 0
-    except Exception:
+    except Exception as e:
+        import traceback
+        logger.error("Error preparing dataset: %s", e)
+        traceback.print_exc()
         return 1
 
 
