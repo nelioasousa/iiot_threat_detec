@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+"""Unpack .tar.xz archives in the dataset directory, with optional SHA256 verification."""
+
 import argparse
 import os
 import lzma

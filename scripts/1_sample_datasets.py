@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+"""Print sample entries and total size of attack and benign datasets."""
+
 from pathlib import Path
 import csv
 

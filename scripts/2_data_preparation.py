@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
-"""DataSense dataset preparation.
+"""
+DataSense dataset preparation.
 
 - Dropping unwanted columns/attributes
 - Merging benign and attack data together
 - Converting non-numeric attributes to dummies
+- Classifying devices into types (IoT, control, infra)
 - Saving prepared dataset as a parquet file
 """
 
