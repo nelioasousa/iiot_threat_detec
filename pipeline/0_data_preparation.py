@@ -97,6 +97,20 @@ def prepare_dataset():
     full_data = gen_dummies(full_data, "network_protocols_dst", KEEP_PROTOCOLS, "network_dst_procols_has")
     full_data = gen_dummies(full_data, "network_ports_src", KEEP_PORTS, "network_src_ports_has")
     full_data = gen_dummies(full_data, "network_ports_dst", KEEP_PORTS, "network_dst_ports_has")
+    # Device type column
+    all_devices = full_data["device_name"].unique().tolist()
+    iot_devices = [
+        d for d in all_devices
+        if (d.startswith("plug-") or d.endswith("-sensor") or d.endswith("-camera"))
+    ]
+    control_devices = ["mqtt-broker", "edge1"]
+    devices_type = {d: "iot" for d in iot_devices}
+    devices_type.update({d: "control" for d in control_devices})
+    devices_type.update({d: "infra" for d in all_devices if d not in devices_type})
+    full_data["device_type"] = pd.Series(
+        [devices_type[d] for d in full_data["device_name"]],
+        dtype="str", name="device_type",
+    )
     # Save full data as parquet
     full_data.to_parquet(SAVE_FULL_DATA_PATH, index=False)
     return
