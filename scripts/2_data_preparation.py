@@ -29,14 +29,15 @@ CONVERTERS = {
 }
 
 DROP_COLUMNS = frozenset([
-    "device_mac", "label_full", "label3",
-    "timestamp", "timestamp_start", "timestamp_end",
+    "device_mac", "timestamp", "timestamp_start", "timestamp_end",
     "log_data-ranges_avg", "log_data-ranges_max", "log_data-ranges_min",
     "log_data-ranges_std_deviation", "log_data-types", "log_data-types_count",
     "log_interval-messages", "log_messages_count", "network_ips_all",
     "network_ips_dst", "network_ips_src", "network_macs_all", "network_macs_dst",
     "network_macs_src", "network_ports_all", "network_protocols_all",
 ])
+
+CATEGORY_COLS = ["device_name", "label_full", "label1", "label2", "label3", "label4"]
 
 DOS_DDOS_PORTS = frozenset([
     "22", "23", "80", "443", "554",
@@ -78,27 +79,35 @@ def gen_dummies(
     keep_items: Iterable[str],
     prefix: str,
 ) -> pd.DataFrame:
+    dummies = {}
     for item in keep_items:
-        column_name = f"{prefix}_item"
-        dataframe[column_name] = pd.Series(
-            [item in entry for entry in dataframe[target_column]],
-            dtype="bool", name=column_name,
-        )
+        column_name = f"{prefix}_{item}"
+        dummies[column_name] = [item in entry for entry in dataframe[target_column]]
+    dummies = pd.DataFrame(dummies, dtype="bool")
     dataframe.drop(columns=target_column, inplace=True)
-    return dataframe
+    return pd.concat((dataframe, dummies), axis=1)
 
 
 def prepare_dataset():
     target_columns = get_csv_columns(RAW_BENIGN_DATA_PATH)
     target_columns = [c for c in target_columns if c not in DROP_COLUMNS]
-    benign_data = pd.read_csv(RAW_BENIGN_DATA_PATH, usecols=target_columns, converters=CONVERTERS)
-    attack_data = pd.read_csv(RAW_ATTACK_DATA_PATH, usecols=target_columns, converters=CONVERTERS)
-    full_data = pd.concat([benign_data, attack_data], ignore_index=True)
+    benign_data = pd.read_csv(
+        RAW_BENIGN_DATA_PATH,
+        usecols=target_columns,
+        converters=CONVERTERS,
+    )
+    attack_data = pd.read_csv(
+        RAW_ATTACK_DATA_PATH,
+        usecols=target_columns,
+        converters=CONVERTERS,
+    )
+    full_data = pd.concat([benign_data, attack_data], axis=0, ignore_index=True)
+    full_data[CATEGORY_COLS] = full_data[CATEGORY_COLS].astype("category")
     # New attributes/columns
-    full_data = gen_dummies(full_data, "network_protocols_src", KEEP_PROTOCOLS, "network_src_procols_has")
-    full_data = gen_dummies(full_data, "network_protocols_dst", KEEP_PROTOCOLS, "network_dst_procols_has")
-    full_data = gen_dummies(full_data, "network_ports_src", KEEP_PORTS, "network_src_ports_has")
-    full_data = gen_dummies(full_data, "network_ports_dst", KEEP_PORTS, "network_dst_ports_has")
+    full_data = gen_dummies(full_data, "network_protocols_src", KEEP_PROTOCOLS, "network_protocols_src_has")
+    full_data = gen_dummies(full_data, "network_protocols_dst", KEEP_PROTOCOLS, "network_protocols_dst_has")
+    full_data = gen_dummies(full_data, "network_ports_src", KEEP_PORTS, "network_ports_src_has")
+    full_data = gen_dummies(full_data, "network_ports_dst", KEEP_PORTS, "network_ports_dst_has")
     # Device type column
     all_devices = full_data["device_name"].unique().tolist()
     iot_devices = [
@@ -109,12 +118,10 @@ def prepare_dataset():
     devices_type = {d: "iot" for d in iot_devices}
     devices_type.update({d: "control" for d in control_devices})
     devices_type.update({d: "infra" for d in all_devices if d not in devices_type})
-    full_data["device_type"] = pd.Series(
-        [devices_type[d] for d in full_data["device_name"]],
-        dtype="str", name="device_type",
-    )
+    full_data["device_type"] = full_data["device_name"].map(devices_type).astype("category")
     # Save full data as parquet
-    full_data.to_parquet(SAVE_FULL_DATA_PATH, index=False)
+    with SAVE_FULL_DATA_PATH.open("wb") as data_parquet:
+        full_data.to_parquet(data_parquet, index=False)
     return
 
 
@@ -124,7 +131,7 @@ def run() -> int:
     import time
 
     logging.basicConfig(level=logging.INFO, format="[%(name)s:%(levelname)8s] %(message)s")
-    logger = logging.getLogger("PIPE-S0")
+    logger = logging.getLogger("DATA_PREPARATION")
 
     parser = argparse.ArgumentParser(description="DataSense dataset preparation")
     parser.parse_args()
@@ -134,7 +141,7 @@ def run() -> int:
         logger.info("Preparing dataset...")
         prepare_dataset()
         end = time.monotonic()
-        logger.info(f"Dataset prepared in {end - start:.2f} seconds")
+        logger.info(f"Finished in {end - start:.2f} seconds")
         return 0
     except Exception as e:
         import traceback
