@@ -1,12 +1,23 @@
+#!/usr/bin/env python3
+
+"""DataSense dataset preparation.
+
+- Dropping unwanted columns/attributes
+- Merging benign and attack data together
+- Converting non-numeric attributes to dummies
+- Saving prepared dataset as a parquet file
+"""
+
 import csv
 from pathlib import Path
 from ast import literal_eval
-from collections.abc import Sequence
+from collections.abc import Sequence, Iterable
 import pandas as pd
 
 
 RAW_BENIGN_DATA_PATH = Path("datasense/dataset/benign_samples_1sec.csv")
 RAW_ATTACK_DATA_PATH = Path("datasense/dataset/attack_samples_1sec.csv")
+SAVE_FULL_DATA_PATH = Path("datasense/dataset/datasense_1sec.parquet")
 
 CONVERTERS = {
     "network_protocols_dst": literal_eval,
@@ -16,7 +27,8 @@ CONVERTERS = {
 }
 
 DROP_COLUMNS = frozenset([
-    "device_mac", "timestamp", "timestamp_start", "timestamp_end",
+    "device_mac", "label_full", "label3",
+    "timestamp", "timestamp_start", "timestamp_end",
     "log_data-ranges_avg", "log_data-ranges_max", "log_data-ranges_min",
     "log_data-ranges_std_deviation", "log_data-types", "log_data-types_count",
     "log_interval-messages", "log_messages_count", "network_ips_all",
@@ -24,25 +36,22 @@ DROP_COLUMNS = frozenset([
     "network_macs_src", "network_ports_all", "network_protocols_all",
 ])
 
-
 DOS_DDOS_PORTS = frozenset([
     "22", "23", "80", "443", "554",
     "557", "1883", "6668", "8000", "9595",
 ])
 
-
-IOT_KEEP_PROTOCOLS = frozenset(["mqtt", "data", "json", "enip", "c1222", "rtsp", "ipdc", "rtcp", "rtsp", "tls", "tcp"])
-BROKER_KEEP_PROTOCOLS = frozenset(["json", "mqtt", "ipdc", "xlm", "ftp", "telnet", "rpc", "dns", "ntp", "tls"])
-GENERAL_KEEP_PROTOCOLS = frozenset(["tcp", "udp", "tls", "arp", "icmp", "icmpv6", "dhcp", "dhcpv6", "http", "json", "xlm", "telnet", "ftp", "rpc", "dns", "quic", "rtcp", "rtsp", "ssh", "rpc"])
-
-IOT_KEEP_PORTS = frozenset([
-    "80", "443", "1883", "8883", "5683",
-    "5684", "5671", "5672", "5353", "1900",
-    "21", "1153", "53", "67", "68", "546", "547",
-    "123", "135",
+DOS_DDOS_PROTOCOLS = frozenset([
+    "ssh", "telnet", "http", "icmp", "mqtt", "tcp", "udp", "arp",
 ])
-BROKER_KEEP_PORTS = frozenset([])
-GENERAL_KEEP_PORTS = DOS_DDOS_PORTS.union(IOT_KEEP_PORTS, BROKER_KEEP_PORTS)
+
+UNCOMMON_ATTACK_PROTOCOLS = frozenset([
+    "xlm", "telnet", "data", "dns", "icmp",
+    "data", "icmp", "lbtrm", "telnet", "dns",
+])
+
+KEEP_PORTS = DOS_DDOS_PORTS
+KEEP_PROTOCOLS = DOS_DDOS_PROTOCOLS.union(UNCOMMON_ATTACK_PROTOCOLS)
 
 
 def get_csv_columns(csv_path: Path) -> list[str]:
@@ -57,8 +66,24 @@ def get_csv_columns(csv_path: Path) -> list[str]:
         not isinstance(column_names, Sequence)
         or sum(isinstance(c, str) for c in column_names) != len(column_names)
     ):
-        raise TypeError("The CSV first entry wasn't a column names header")
+        raise TypeError("The CSV first entry must be a column names header")
     return list(column_names)
+
+
+def gen_dummies(
+    dataframe: pd.DataFrame,
+    target_column: str,
+    keep_items: Iterable[str],
+    prefix: str,
+) -> pd.DataFrame:
+    for item in keep_items:
+        column_name = f"{prefix}_item"
+        dataframe[column_name] = pd.Series(
+            [item in entry for entry in dataframe[target_column]],
+            dtype="bool", name=column_name,
+        )
+    dataframe.drop(columns=target_column, inplace=True)
+    return dataframe
 
 
 def prepare_datasets():
@@ -67,19 +92,13 @@ def prepare_datasets():
     benign_data = pd.read_csv(RAW_BENIGN_DATA_PATH, usecols=target_columns, converters=CONVERTERS)
     attack_data = pd.read_csv(RAW_ATTACK_DATA_PATH, usecols=target_columns, converters=CONVERTERS)
     full_data = pd.concat([benign_data, attack_data], ignore_index=True)
-    all_devices: list[str] = benign_data["device_name"].unique().tolist()
-    broker_device = ["mqtt-broker", "edge1"]
-    iot_devices = [
-        dev for dev in all_devices
-        if (
-            dev.endswith("-sensor")
-            or dev.endswith("-camera")
-            or dev.startswith("plug-")
-        )
-    ]
-    # General
-    # IoT
-    # Broker
+    # New attributes/columns
+    full_data = gen_dummies(full_data, "network_protocols_src", KEEP_PROTOCOLS, "network_src_procols_has")
+    full_data = gen_dummies(full_data, "network_protocols_dst", KEEP_PROTOCOLS, "network_dst_procols_has")
+    full_data = gen_dummies(full_data, "network_ports_src", KEEP_PORTS, "network_src_ports_has")
+    full_data = gen_dummies(full_data, "network_ports_dst", KEEP_PORTS, "network_dst_ports_has")
+    # Save full data as parquet
+    full_data.to_parquet(SAVE_FULL_DATA_PATH, index=False)
     return
 
 
