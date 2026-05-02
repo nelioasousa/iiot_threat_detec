@@ -29,7 +29,7 @@ CONVERTERS = {
 }
 
 DROP_COLUMNS = frozenset([
-    "device_mac", "timestamp", "timestamp_start", "timestamp_end",
+    "device_mac", "label_full", "timestamp", "timestamp_start", "timestamp_end",
     "log_data-ranges_avg", "log_data-ranges_max", "log_data-ranges_min",
     "log_data-ranges_std_deviation", "log_data-types", "log_data-types_count",
     "log_interval-messages", "log_messages_count", "network_ips_all",
@@ -37,7 +37,7 @@ DROP_COLUMNS = frozenset([
     "network_macs_src", "network_ports_all", "network_protocols_all",
 ])
 
-CATEGORY_COLS = ["device_name", "label_full", "label1", "label2", "label3", "label4"]
+CATEGORY_COLS = ["device_name", "label1", "label2", "label3", "label4"]
 
 DOS_DDOS_PORTS = frozenset([
     "22", "23", "80", "443", "554",
@@ -103,6 +103,7 @@ def prepare_dataset():
     )
     full_data = pd.concat([benign_data, attack_data], axis=0, ignore_index=True)
     full_data[CATEGORY_COLS] = full_data[CATEGORY_COLS].astype("category")
+    full_data["label_extended"] = full_data["label4"].str.cat(full_data["device_name"], sep="/").astype("category")
     # New attributes/columns
     full_data = gen_dummies(full_data, "network_protocols_src", KEEP_PROTOCOLS, "network_protocols_src_has")
     full_data = gen_dummies(full_data, "network_protocols_dst", KEEP_PROTOCOLS, "network_protocols_dst_has")
