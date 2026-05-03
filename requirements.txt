@@ -6,6 +6,7 @@ pyarrow
 
 # ML
 scikit-learn
+imbalanced-learn
 
 # Notebooks
 ipykernel
