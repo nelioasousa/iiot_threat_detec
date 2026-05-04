@@ -3,5 +3,8 @@ datasense/dataset/*.tar.xz
 datasense/dataset/*.csv
 datasense/dataset/checksums/
 
+# Sklearn's pipeline's caches
+*_cache/
+
 # Python
 venv/

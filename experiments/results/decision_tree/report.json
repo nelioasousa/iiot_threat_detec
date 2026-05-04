@@ -1,0 +1,519 @@
+{
+    "benign": {
+        "precision": 0.9605911330049262,
+        "recall": 0.005701754385964913,
+        "f1-score": 0.011336220678429206,
+        "support": 34200.0
+    },
+    "bruteforce_dictionary-ssh": {
+        "precision": 0.023822269807280513,
+        "recall": 0.37083333333333335,
+        "f1-score": 0.04476861167002012,
+        "support": 240.0
+    },
+    "bruteforce_dictionary-telnet": {
+        "precision": 0.42857142857142855,
+        "recall": 0.18666666666666668,
+        "f1-score": 0.26006191950464397,
+        "support": 225.0
+    },
+    "ddos_ack-frag-flood-port-1883": {
+        "precision": 0.9949494949494949,
+        "recall": 0.8491379310344828,
+        "f1-score": 0.9162790697674419,
+        "support": 232.0
+    },
+    "ddos_ack-frag-flood-port-80": {
+        "precision": 1.0,
+        "recall": 0.7976190476190477,
+        "f1-score": 0.8874172185430463,
+        "support": 168.0
+    },
+    "ddos_connect-flood": {
+        "precision": 1.0,
+        "recall": 0.8666666666666667,
+        "f1-score": 0.9285714285714286,
+        "support": 15.0
+    },
+    "ddos_http-flood-port-1883": {
+        "precision": 0.6061643835616438,
+        "recall": 0.7866666666666666,
+        "f1-score": 0.6847195357833655,
+        "support": 225.0
+    },
+    "ddos_http-flood-port-80": {
+        "precision": 0.921875,
+        "recall": 0.3532934131736527,
+        "f1-score": 0.5108225108225108,
+        "support": 167.0
+    },
+    "ddos_icmp-flood": {
+        "precision": 0.9622093023255814,
+        "recall": 0.8275,
+        "f1-score": 0.8897849462365591,
+        "support": 400.0
+    },
+    "ddos_icmp-frag-flood": {
+        "precision": 0.984984984984985,
+        "recall": 0.830379746835443,
+        "f1-score": 0.9010989010989011,
+        "support": 395.0
+    },
+    "ddos_mqtt-publish-flood": {
+        "precision": 0.9285714285714286,
+        "recall": 0.8666666666666667,
+        "f1-score": 0.896551724137931,
+        "support": 15.0
+    },
+    "ddos_push-ack-flood-port-1883": {
+        "precision": 1.0,
+        "recall": 0.8701298701298701,
+        "f1-score": 0.9305555555555556,
+        "support": 231.0
+    },
+    "ddos_push-ack-flood-port-80": {
+        "precision": 0.8164556962025317,
+        "recall": 0.7724550898203593,
+        "f1-score": 0.7938461538461539,
+        "support": 167.0
+    },
+    "ddos_rst-fin-flood-port-1883": {
+        "precision": 1.0,
+        "recall": 0.8922413793103449,
+        "f1-score": 0.9430523917995444,
+        "support": 232.0
+    },
+    "ddos_rst-fin-flood-port-80": {
+        "precision": 1.0,
+        "recall": 0.7988165680473372,
+        "f1-score": 0.8881578947368421,
+        "support": 169.0
+    },
+    "ddos_slowloris-port-1883": {
+        "precision": 0.004893964110929853,
+        "recall": 0.6,
+        "f1-score": 0.009708737864077669,
+        "support": 15.0
+    },
+    "ddos_slowloris-port-554": {
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1-score": 0.8571428571428571,
+        "support": 15.0
+    },
+    "ddos_slowloris-port-80": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 45.0
+    },
+    "ddos_slowloris-port-8000": {
+        "precision": 1.0,
+        "recall": 0.13333333333333333,
+        "f1-score": 0.23529411764705882,
+        "support": 15.0
+    },
+    "ddos_syn-flood-port-1883": {
+        "precision": 0.9891891891891892,
+        "recall": 0.7922077922077922,
+        "f1-score": 0.8798076923076923,
+        "support": 231.0
+    },
+    "ddos_syn-flood-port-80": {
+        "precision": 0.9703703703703703,
+        "recall": 0.7891566265060241,
+        "f1-score": 0.8704318936877077,
+        "support": 166.0
+    },
+    "ddos_synonymousip-flood-port-1883": {
+        "precision": 0.5441988950276243,
+        "recall": 0.8528138528138528,
+        "f1-score": 0.6644182124789207,
+        "support": 231.0
+    },
+    "ddos_synonymousip-flood-port-80": {
+        "precision": 0.9534883720930233,
+        "recall": 0.24404761904761904,
+        "f1-score": 0.3886255924170616,
+        "support": 168.0
+    },
+    "ddos_tcp-flood-port-1883": {
+        "precision": 1.0,
+        "recall": 0.851528384279476,
+        "f1-score": 0.9198113207547169,
+        "support": 229.0
+    },
+    "ddos_tcp-flood-port-80": {
+        "precision": 0.992,
+        "recall": 0.7294117647058823,
+        "f1-score": 0.8406779661016949,
+        "support": 170.0
+    },
+    "ddos_udp-flood-port-1883": {
+        "precision": 0.9441624365482234,
+        "recall": 0.808695652173913,
+        "f1-score": 0.8711943793911007,
+        "support": 230.0
+    },
+    "ddos_udp-flood-port-80": {
+        "precision": 0.950354609929078,
+        "recall": 0.7928994082840237,
+        "f1-score": 0.864516129032258,
+        "support": 169.0
+    },
+    "ddos_udp-frag-flood": {
+        "precision": 0.9941002949852508,
+        "recall": 0.8403990024937655,
+        "f1-score": 0.9108108108108108,
+        "support": 401.0
+    },
+    "dos_ack-frag-flood-port-1883": {
+        "precision": 1.0,
+        "recall": 0.9698275862068966,
+        "f1-score": 0.9846827133479212,
+        "support": 232.0
+    },
+    "dos_ack-frag-flood-port-80": {
+        "precision": 0.9932432432432432,
+        "recall": 0.8698224852071006,
+        "f1-score": 0.9274447949526814,
+        "support": 169.0
+    },
+    "dos_connect-flood": {
+        "precision": 1.0,
+        "recall": 0.8666666666666667,
+        "f1-score": 0.9285714285714286,
+        "support": 15.0
+    },
+    "dos_http-flood-port-1883": {
+        "precision": 1.0,
+        "recall": 0.9333333333333333,
+        "f1-score": 0.9655172413793104,
+        "support": 15.0
+    },
+    "dos_http-flood-port-443": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 15.0
+    },
+    "dos_http-flood-port-554": {
+        "precision": 1.0,
+        "recall": 0.8,
+        "f1-score": 0.8888888888888888,
+        "support": 15.0
+    },
+    "dos_http-flood-port-6668": {
+        "precision": 1.0,
+        "recall": 0.5833333333333334,
+        "f1-score": 0.7368421052631579,
+        "support": 60.0
+    },
+    "dos_http-flood-port-80": {
+        "precision": 0.96875,
+        "recall": 0.8266666666666667,
+        "f1-score": 0.8920863309352518,
+        "support": 75.0
+    },
+    "dos_http-flood-port-9595": {
+        "precision": 0.7777777777777778,
+        "recall": 0.4666666666666667,
+        "f1-score": 0.5833333333333334,
+        "support": 15.0
+    },
+    "dos_icmp-flood": {
+        "precision": 0.965,
+        "recall": 0.9061032863849765,
+        "f1-score": 0.9346246973365617,
+        "support": 426.0
+    },
+    "dos_icmp-frag-flood": {
+        "precision": 0.9841688654353562,
+        "recall": 0.9443037974683545,
+        "f1-score": 0.9638242894056848,
+        "support": 395.0
+    },
+    "dos_mqtt-publish-flood": {
+        "precision": 0.8333333333333334,
+        "recall": 1.0,
+        "f1-score": 0.9090909090909091,
+        "support": 15.0
+    },
+    "dos_push-ack-flood-port-1883": {
+        "precision": 0.9910714285714286,
+        "recall": 0.9652173913043478,
+        "f1-score": 0.9779735682819384,
+        "support": 230.0
+    },
+    "dos_push-ack-flood-port-80": {
+        "precision": 1.0,
+        "recall": 0.8795180722891566,
+        "f1-score": 0.9358974358974359,
+        "support": 166.0
+    },
+    "dos_rst-fin-flood-port-1883": {
+        "precision": 1.0,
+        "recall": 0.9190031152647975,
+        "f1-score": 0.9577922077922078,
+        "support": 321.0
+    },
+    "dos_rst-fin-flood-port-80": {
+        "precision": 1.0,
+        "recall": 0.9333333333333333,
+        "f1-score": 0.9655172413793104,
+        "support": 75.0
+    },
+    "dos_slowloris-port-1883": {
+        "precision": 0.028680688336520075,
+        "recall": 1.0,
+        "f1-score": 0.055762081784386616,
+        "support": 15.0
+    },
+    "dos_slowloris-port-554": {
+        "precision": 0.0003919211977111802,
+        "recall": 1.0,
+        "f1-score": 0.0007835353113246971,
+        "support": 15.0
+    },
+    "dos_slowloris-port-80": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 45.0
+    },
+    "dos_slowloris-port-8000": {
+        "precision": 0.008116883116883116,
+        "recall": 1.0,
+        "f1-score": 0.01610305958132045,
+        "support": 15.0
+    },
+    "dos_syn-flood-port-1883": {
+        "precision": 0.9730941704035875,
+        "recall": 0.9559471365638766,
+        "f1-score": 0.9644444444444444,
+        "support": 227.0
+    },
+    "dos_syn-flood-port-22": {
+        "precision": 0.75,
+        "recall": 0.75,
+        "f1-score": 0.75,
+        "support": 16.0
+    },
+    "dos_syn-flood-port-23": {
+        "precision": 1.0,
+        "recall": 0.9375,
+        "f1-score": 0.967741935483871,
+        "support": 16.0
+    },
+    "dos_syn-flood-port-443": {
+        "precision": 1.0,
+        "recall": 0.9375,
+        "f1-score": 0.967741935483871,
+        "support": 32.0
+    },
+    "dos_syn-flood-port-554": {
+        "precision": 0.975,
+        "recall": 0.975,
+        "f1-score": 0.975,
+        "support": 40.0
+    },
+    "dos_syn-flood-port-557": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 8.0
+    },
+    "dos_syn-flood-port-80": {
+        "precision": 0.9736842105263158,
+        "recall": 0.8757396449704142,
+        "f1-score": 0.9221183800623053,
+        "support": 169.0
+    },
+    "dos_synonymousip-flood-port-1883": {
+        "precision": 0.9951690821256038,
+        "recall": 0.8995633187772926,
+        "f1-score": 0.944954128440367,
+        "support": 229.0
+    },
+    "dos_synonymousip-flood-port-80": {
+        "precision": 0.6056338028169014,
+        "recall": 0.23497267759562843,
+        "f1-score": 0.33858267716535434,
+        "support": 183.0
+    },
+    "dos_tcp-flood-port-1883": {
+        "precision": 1.0,
+        "recall": 0.9385964912280702,
+        "f1-score": 0.9683257918552036,
+        "support": 228.0
+    },
+    "dos_tcp-flood-port-22": {
+        "precision": 0.9333333333333333,
+        "recall": 0.875,
+        "f1-score": 0.9032258064516129,
+        "support": 16.0
+    },
+    "dos_tcp-flood-port-23": {
+        "precision": 1.0,
+        "recall": 0.9375,
+        "f1-score": 0.967741935483871,
+        "support": 16.0
+    },
+    "dos_tcp-flood-port-443": {
+        "precision": 1.0,
+        "recall": 0.9375,
+        "f1-score": 0.967741935483871,
+        "support": 32.0
+    },
+    "dos_tcp-flood-port-554": {
+        "precision": 1.0,
+        "recall": 0.9791666666666666,
+        "f1-score": 0.9894736842105263,
+        "support": 48.0
+    },
+    "dos_tcp-flood-port-80": {
+        "precision": 0.9683544303797469,
+        "recall": 0.9053254437869822,
+        "f1-score": 0.9357798165137615,
+        "support": 169.0
+    },
+    "dos_udp-flood": {
+        "precision": 1.0,
+        "recall": 0.9186046511627907,
+        "f1-score": 0.9575757575757575,
+        "support": 430.0
+    },
+    "dos_udp-frag-flood": {
+        "precision": 1.0,
+        "recall": 0.9441624365482234,
+        "f1-score": 0.9712793733681462,
+        "support": 394.0
+    },
+    "malware_mirai-syn-flood": {
+        "precision": 0.8461538461538461,
+        "recall": 0.1244343891402715,
+        "f1-score": 0.21696252465483234,
+        "support": 884.0
+    },
+    "malware_mirai-udp-flood": {
+        "precision": 0.7612732095490716,
+        "recall": 0.2858565737051793,
+        "f1-score": 0.41564083997103546,
+        "support": 1004.0
+    },
+    "mitm_arp-spoofing": {
+        "precision": 0.32972972972972975,
+        "recall": 0.05820610687022901,
+        "f1-score": 0.0989456609894566,
+        "support": 1048.0
+    },
+    "mitm_impersonation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 210.0
+    },
+    "mitm_ip-spoofing": {
+        "precision": 0.9959404600811907,
+        "recall": 0.968421052631579,
+        "f1-score": 0.9819879919946631,
+        "support": 760.0
+    },
+    "recon_host-disc-arp-ping": {
+        "precision": 0.3333333333333333,
+        "recall": 0.0010162601626016261,
+        "f1-score": 0.002026342451874367,
+        "support": 984.0
+    },
+    "recon_host-disc-tcp-ack-ping": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 995.0
+    },
+    "recon_host-disc-tcp-syn-ping": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 987.0
+    },
+    "recon_host-disc-tcp-syn-stealth": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 985.0
+    },
+    "recon_host-disc-udp-ping": {
+        "precision": 0.3333333333333333,
+        "recall": 0.0010256410256410256,
+        "f1-score": 0.002044989775051125,
+        "support": 975.0
+    },
+    "recon_os-scan": {
+        "precision": 0.9193548387096774,
+        "recall": 0.057057057057057055,
+        "f1-score": 0.10744580584354382,
+        "support": 999.0
+    },
+    "recon_ping-sweep": {
+        "precision": 0.027777777777777776,
+        "recall": 0.014625228519195612,
+        "f1-score": 0.019161676646706587,
+        "support": 547.0
+    },
+    "recon_port-scan": {
+        "precision": 0.4074074074074074,
+        "recall": 0.01116751269035533,
+        "f1-score": 0.021739130434782608,
+        "support": 985.0
+    },
+    "recon_vuln-scan": {
+        "precision": 1.0,
+        "recall": 0.003036437246963563,
+        "f1-score": 0.006054490413723511,
+        "support": 988.0
+    },
+    "web_backdoor-upload": {
+        "precision": 0.9354838709677419,
+        "recall": 0.5576923076923077,
+        "f1-score": 0.6987951807228916,
+        "support": 52.0
+    },
+    "web_command-injection": {
+        "precision": 0.9788135593220338,
+        "recall": 0.927710843373494,
+        "f1-score": 0.9525773195876288,
+        "support": 249.0
+    },
+    "web_sql-injection": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 96.0
+    },
+    "web_sql-injection-blind": {
+        "precision": 0.9836065573770492,
+        "recall": 0.967741935483871,
+        "f1-score": 0.975609756097561,
+        "support": 248.0
+    },
+    "web_xss": {
+        "precision": 1.0,
+        "recall": 0.9259259259259259,
+        "f1-score": 0.9615384615384616,
+        "support": 54.0
+    },
+    "accuracy": 0.1699707736187894,
+    "macro avg": {
+        "precision": 0.7535471946258682,
+        "recall": 0.6461792822518146,
+        "f1-score": 0.6354340170007923,
+        "support": 56798.0
+    },
+    "weighted avg": {
+        "precision": 0.838434500427795,
+        "recall": 0.1699707736187894,
+        "f1-score": 0.18448739895972163,
+        "support": 56798.0
+    }
+}
