@@ -1,0 +1,5 @@
+{
+  "model__ccp_alpha": 0.0,
+  "model__criterion": "entropy",
+  "model__max_depth": 64
+}
