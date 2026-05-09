@@ -8,3 +8,6 @@ datasense/dataset/checksums/
 
 # Python
 venv/
+
+# lab.py : script for testing some code snippets
+lab.py
