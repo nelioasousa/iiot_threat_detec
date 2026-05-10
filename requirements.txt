@@ -1,8 +1,10 @@
-# Data exploration
+# Data
 pandas
-seaborn
-matplotlib
 pyarrow
+
+# Plotting
+matplotlib
+seaborn
 
 # ML
 scikit-learn
