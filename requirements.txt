@@ -5,7 +5,6 @@ pyarrow
 # Plotting
 matplotlib
 seaborn
-plotly
 
 # ML
 scikit-learn
