@@ -1,26 +1,26 @@
 {
   "best_parameters": {
-    "model__ccp_alpha": 0.0,
-    "model__criterion": "gini"
+    "model__criterion": "entropy",
+    "model__min_samples_leaf": 5
   },
   "all_parameters": {
     "ccp_alpha": 0.0,
     "class_weight": null,
-    "criterion": "gini",
-    "max_depth": 32,
+    "criterion": "entropy",
+    "max_depth": null,
     "max_features": null,
     "max_leaf_nodes": null,
     "min_impurity_decrease": 0.0,
-    "min_samples_leaf": 10,
-    "min_samples_split": 20,
+    "min_samples_leaf": 5,
+    "min_samples_split": 2,
     "min_weight_fraction_leaf": 0.0,
     "monotonic_cst": null,
     "random_state": 12345,
     "splitter": "best"
   },
   "tree_structure": {
-    "n_nodes": 5717,
-    "n_leafs": 2859,
-    "max_depth": 32
+    "n_nodes": 12673,
+    "n_leafs": 6337,
+    "max_depth": 44
   }
 }

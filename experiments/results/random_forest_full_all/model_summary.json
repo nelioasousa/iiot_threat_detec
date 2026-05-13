@@ -1,7 +1,7 @@
 {
   "best_parameters": {
-    "model__criterion": "gini",
-    "model__max_depth": 20,
+    "model__criterion": "entropy",
+    "model__max_leaf_nodes": 2048,
     "model__n_estimators": 30
   },
   "all_parameters": {
@@ -93,10 +93,10 @@
       "web_sql-injection-blind": 0.76,
       "web_xss": 3.44
     },
-    "criterion": "gini",
-    "max_depth": 20,
+    "criterion": "entropy",
+    "max_depth": null,
     "max_features": 0.3,
-    "max_leaf_nodes": null,
+    "max_leaf_nodes": 2048,
     "max_samples": null,
     "min_impurity_decrease": 0.0,
     "min_samples_leaf": 5,
@@ -108,14 +108,14 @@
     "oob_score": false,
     "random_state": 12345,
     "replacement": false,
-    "sampling_strategy": "<function get_sampling_strategy at 0x7ca3a2a354e0>",
+    "sampling_strategy": "<function get_sampling_strategy at 0x787306fbd760>",
     "verbose": 0,
     "warm_start": false
   },
   "forest_structure": {
-    "total_n_nodes": 37966,
-    "mean_n_nodes": 1265.53,
-    "mean_n_leafs": 633.27,
-    "mean_depth": 20.0
+    "total_n_nodes": 122850,
+    "mean_n_nodes": 4095.0,
+    "mean_n_leafs": 2048.0,
+    "mean_depth": 34.0
   }
 }
