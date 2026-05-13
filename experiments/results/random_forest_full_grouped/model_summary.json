@@ -1,35 +1,43 @@
 {
   "best_parameters": {
-    "model__ccp_alpha": 0.0,
     "model__criterion": "gini",
-    "model__n_estimators": 150
+    "model__n_estimators": 50
   },
   "all_parameters": {
     "bootstrap": false,
     "ccp_alpha": 0.0,
-    "class_weight": "balanced_subsample",
+    "class_weight": {
+      "benign": 1.0,
+      "bruteforce": 1.0,
+      "ddos": 1.0,
+      "dos": 1.0,
+      "malware": 1.0,
+      "mitm": 1.0,
+      "recon": 1.0,
+      "web": 1.0
+    },
     "criterion": "gini",
-    "max_depth": 6,
-    "max_features": "sqrt",
+    "max_depth": 12,
+    "max_features": 0.5,
     "max_leaf_nodes": null,
     "max_samples": null,
     "min_impurity_decrease": 0.0,
-    "min_samples_leaf": 1,
-    "min_samples_split": 2,
+    "min_samples_leaf": 10,
+    "min_samples_split": 20,
     "min_weight_fraction_leaf": 0.0,
     "monotonic_cst": null,
-    "n_estimators": 150,
+    "n_estimators": 50,
     "n_jobs": null,
     "oob_score": false,
     "random_state": 12345,
-    "replacement": true,
-    "sampling_strategy": "<function get_sampling_strategy at 0x782090f1b420>",
+    "replacement": false,
+    "sampling_strategy": "<function get_sampling_strategy at 0x7509d45fce00>",
     "verbose": 0,
     "warm_start": false
   },
   "forest_structure": {
-    "total_n_nodes": 15722,
-    "mean_n_nodes": 104.81,
-    "mean_n_leafs": 52.91
+    "total_n_nodes": 18088,
+    "mean_n_nodes": 361.76,
+    "mean_n_leafs": 181.38
   }
 }
