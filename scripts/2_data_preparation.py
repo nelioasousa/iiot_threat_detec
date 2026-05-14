@@ -82,7 +82,10 @@ def gen_dummies(
     dummies = {}
     for item in keep_items:
         column_name = f"{prefix}_{item}"
-        dummies[column_name] = [item in entry for entry in dataframe[target_column]]
+        dummy = [item in entry for entry in dataframe[target_column]]
+        if sum(dummy) < 5:
+            continue
+        dummies[column_name] = dummy
     dummies = pd.DataFrame(dummies, dtype="bool")
     dataframe.drop(columns=target_column, inplace=True)
     return pd.concat((dataframe, dummies), axis=1)
