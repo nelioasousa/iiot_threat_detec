@@ -1,7 +1,8 @@
 {
   "best_parameters": {
     "model__criterion": "entropy",
-    "model__min_samples_leaf": 5
+    "model__max_leaf_nodes": 3200,
+    "model__min_samples_leaf": 3
   },
   "all_parameters": {
     "ccp_alpha": 0.0,
@@ -9,9 +10,9 @@
     "criterion": "entropy",
     "max_depth": null,
     "max_features": null,
-    "max_leaf_nodes": null,
+    "max_leaf_nodes": 3200,
     "min_impurity_decrease": 0.0,
-    "min_samples_leaf": 5,
+    "min_samples_leaf": 3,
     "min_samples_split": 2,
     "min_weight_fraction_leaf": 0.0,
     "monotonic_cst": null,
@@ -19,8 +20,8 @@
     "splitter": "best"
   },
   "tree_structure": {
-    "n_nodes": 4303,
-    "n_leafs": 2152,
-    "max_depth": 58
+    "n_nodes": 5609,
+    "n_leafs": 2805,
+    "max_depth": 69
   }
 }
