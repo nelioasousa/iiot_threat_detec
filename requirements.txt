@@ -9,6 +9,10 @@ seaborn
 # ML
 scikit-learn
 imbalanced-learn
+statsmodels
+
+# XAI
+shap
 
 # Notebooks
 ipykernel
