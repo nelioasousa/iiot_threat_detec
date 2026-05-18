@@ -9,5 +9,8 @@ datasense/dataset/checksums/
 # Python
 venv/
 
+# Jupyter checkpoints
+.ipynb_checkpoints
+
 # lab.py : script for testing some code snippets
 lab.py
