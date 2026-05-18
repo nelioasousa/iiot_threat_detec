@@ -1,10 +1,10 @@
 {
   "best_parameters": {
-    "model__C": 0.1
+    "model__C": 10000
   },
   "all_parameters": {
-    "C": 0.1,
-    "class_weight": null,
+    "C": 10000,
+    "class_weight": "balanced",
     "dual": false,
     "fit_intercept": true,
     "intercept_scaling": 1,
@@ -14,7 +14,7 @@
     "penalty": "deprecated",
     "random_state": 12345,
     "solver": "lbfgs",
-    "tol": 0.0001,
+    "tol": 1e-05,
     "verbose": 0,
     "warm_start": false
   }

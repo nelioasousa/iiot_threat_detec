@@ -4,7 +4,7 @@
   },
   "all_parameters": {
     "C": 10,
-    "class_weight": null,
+    "class_weight": "balanced",
     "dual": false,
     "fit_intercept": true,
     "intercept_scaling": 1,
@@ -14,7 +14,7 @@
     "penalty": "deprecated",
     "random_state": 12345,
     "solver": "lbfgs",
-    "tol": 0.0001,
+    "tol": 1e-05,
     "verbose": 0,
     "warm_start": false
   }
