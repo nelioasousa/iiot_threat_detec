@@ -1,10 +1,10 @@
 {
   "best_parameters": {
     "model__criterion": "gini",
-    "model__max_features": 0.25,
+    "model__max_features": 0.5,
     "model__max_leaf_nodes": 600,
     "model__min_samples_leaf": 3,
-    "model__n_estimators": 125
+    "model__n_estimators": 75
   },
   "all_parameters": {
     "bootstrap": false,
@@ -21,7 +21,7 @@
     },
     "criterion": "gini",
     "max_depth": null,
-    "max_features": 0.25,
+    "max_features": 0.5,
     "max_leaf_nodes": 600,
     "max_samples": null,
     "min_impurity_decrease": 0.0,
@@ -29,19 +29,19 @@
     "min_samples_split": 2,
     "min_weight_fraction_leaf": 0.0,
     "monotonic_cst": null,
-    "n_estimators": 125,
+    "n_estimators": 75,
     "n_jobs": null,
     "oob_score": false,
     "random_state": 12345,
     "replacement": false,
-    "sampling_strategy": "<function get_sampling_strategy at 0x7303d4191440>",
+    "sampling_strategy": "<function get_sampling_strategy at 0x7f7bb68207c0>",
     "verbose": 0,
     "warm_start": false
   },
   "forest_structure": {
-    "total_n_nodes": 108331,
-    "mean_n_nodes": 866.65,
-    "mean_n_leafs": 433.82,
-    "mean_depth": 23.37
+    "total_n_nodes": 60697,
+    "mean_n_nodes": 809.29,
+    "mean_n_leafs": 405.15,
+    "mean_depth": 23.25
   }
 }
