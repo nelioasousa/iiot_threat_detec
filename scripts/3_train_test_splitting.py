@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+
+"""Train-test data splitting."""
+
 import sys
 from pathlib import Path
 import pandas as pd
@@ -80,5 +84,4 @@ def run() -> int:
 
 
 if __name__ == "__main__":
-    import sys
     sys.exit(run())
