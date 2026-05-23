@@ -127,7 +127,7 @@ def prepare_dataset():
     full_data["device_type"] = full_data["device_name"].map(devices_type).astype("category")
     # Save full data as parquet
     with SAVE_FULL_DATA_PATH.open("wb") as data_parquet:
-        full_data.to_parquet(data_parquet, index=False)
+        full_data.to_parquet(data_parquet, index=False, compression="gzip")
     return
 
 
