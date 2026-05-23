@@ -4,6 +4,7 @@
 
 import sys
 import warnings
+from time import monotonic
 from pathlib import Path
 from joblib import Parallel, delayed
 
@@ -18,7 +19,7 @@ from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 
 RANDOM_STATE = 12345
-TRAIN_DATA = Path("datasense/dataset/datasense_full_train_1sec.parquet")
+TRAIN_DATA = Path("datasense/dataset/datasense_1sec_train.parquet")
 SAVE_FILE = Path("datasense/dataset/vif_values.csv")
 
 
@@ -44,7 +45,7 @@ def _vif(data: np.ndarray, i: int):
         return variance_inflation_factor(data, i)
 
 
-def get_vif_values(num_samples: int = 30000) -> pd.Series:
+def get_vif_values(num_samples: int = 30000, n_jobs: int = 2) -> pd.Series:
     # Data
     normalizer = get_normalizer()
     data = normalizer.fit_transform(get_data())
@@ -62,9 +63,11 @@ def get_vif_values(num_samples: int = 30000) -> pd.Series:
     data_sample[:, :-1] = data[sample_idxs]
     # VIF values
     vif_values = {"index": [], "data": []}
-    for _ in range(len(feature_names) - 1):
+    num_iter = len(feature_names) - 1
+    for i in range(num_iter):
+        start = monotonic()
         vifs = np.array(
-            Parallel(n_jobs=6, return_as="list")(
+            Parallel(n_jobs=n_jobs, return_as="list")(
                 delayed(_vif)(data_sample, i)
                 for i in range(data_sample.shape[1] - 1)
             )
@@ -79,6 +82,8 @@ def get_vif_values(num_samples: int = 30000) -> pd.Series:
         vif_values["data"].append(vifs[max_vif_col].item())
         vif_values["index"].append(feature_name_out)
         data_sample = np.delete(data_sample, max_vif_col, axis=1)
+        print(f"\r{i+1:03d}/{num_iter} : {(monotonic() - start):.2f} secs", end="")
+    print("\nFinished")
     # Last reamining feature
     vif_values["index"].extend(feature_names)
     vif_values["data"].extend([1.0] * len(feature_names))
@@ -103,12 +108,16 @@ def run() -> int:
         "num_samples", type=int, default=30000,
         help="Number of samples for VIF estimation",
     )
+    parser.add_argument(
+        "--n_jobs", "-j", type=int, default=-1,
+        help="Number of parallel jobs",
+    )
     args = parser.parse_args()
 
     try:
         start = time.monotonic()
         logger.info("Computing VIF values...")
-        _ = get_vif_values(args.num_samples)
+        _ = get_vif_values(args.num_samples, args.n_jobs)
         end = time.monotonic()
         logger.info(f"Finished in {end - start:.2f} seconds")
         return 0
