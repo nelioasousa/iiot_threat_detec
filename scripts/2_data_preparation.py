@@ -29,7 +29,7 @@ CONVERTERS = {
 }
 
 DROP_COLUMNS = frozenset([
-    "device_mac", "label_full", "timestamp", "timestamp_start", "timestamp_end",
+    "device_mac", "timestamp", "timestamp_start", "timestamp_end",
     "log_data-ranges_avg", "log_data-ranges_max", "log_data-ranges_min",
     "log_data-ranges_std_deviation", "log_data-types", "log_data-types_count",
     "log_interval-messages", "log_messages_count", "network_ips_all",
@@ -37,7 +37,7 @@ DROP_COLUMNS = frozenset([
     "network_macs_src", "network_ports_all", "network_protocols_all",
 ])
 
-CATEGORY_COLS = ["device_name", "label1", "label2", "label3", "label4"]
+CATEGORY_COLS = ["device_name", "label1", "label2", "label3", "label4", "label_full"]
 
 DOS_DDOS_PORTS = frozenset([
     "22", "23", "80", "443", "554",
@@ -48,13 +48,15 @@ DOS_DDOS_PROTOCOLS = frozenset([
     "ssh", "telnet", "http", "icmp", "mqtt", "tcp", "udp", "arp",
 ])
 
-UNCOMMON_ATTACK_PROTOCOLS = frozenset([
-    "xlm", "telnet", "data", "dns", "icmp",
-    "data", "icmp", "lbtrm", "telnet", "dns",
+ATTACK_PROTOCOLS = frozenset([
+    "xml", "data", "dns", "json", "ssdp", "ntp", "rtcp", "rtsp",
+    "lbtrm", "lldp", "data-text-lines", "tls", "dhcpv6", "ipdc",
+    "nbns", "daytime", "igmp", "snmp", "ncp", "nbss", "hcrt",
+    "time", "mdns", "c1222", "discard", "rpc", "ftp", "chargen",
 ])
 
 KEEP_PORTS = DOS_DDOS_PORTS
-KEEP_PROTOCOLS = DOS_DDOS_PROTOCOLS.union(UNCOMMON_ATTACK_PROTOCOLS)
+KEEP_PROTOCOLS = DOS_DDOS_PROTOCOLS.union(ATTACK_PROTOCOLS)
 
 
 def get_csv_columns(csv_path: Path) -> list[str]:
@@ -83,7 +85,7 @@ def gen_dummies(
     for item in keep_items:
         column_name = f"{prefix}_{item}"
         dummy = [item in entry for entry in dataframe[target_column]]
-        if sum(dummy) < 5:
+        if sum(dummy) < 100:
             continue
         dummies[column_name] = dummy
     dummies = pd.DataFrame(dummies, dtype="bool")
