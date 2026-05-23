@@ -108,7 +108,6 @@ def prepare_dataset():
     )
     full_data = pd.concat([benign_data, attack_data], axis=0, ignore_index=True)
     full_data[CATEGORY_COLS] = full_data[CATEGORY_COLS].astype("category")
-    full_data["label_extended"] = full_data["label4"].str.cat(full_data["device_name"], sep="/").astype("category")
     # New attributes/columns
     full_data = gen_dummies(full_data, "network_protocols_src", KEEP_PROTOCOLS, "network_protocols_src_has")
     full_data = gen_dummies(full_data, "network_protocols_dst", KEEP_PROTOCOLS, "network_protocols_dst_has")
