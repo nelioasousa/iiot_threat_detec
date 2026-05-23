@@ -13,48 +13,25 @@ TEST_SIZE = 0.25
 RANDOM_STATE = 12345
 
 
-def _get_split_paths(name: str) -> tuple[Path, Path]:
+def _get_split_paths() -> tuple[Path, Path]:
     return tuple(
-        DATASET_PATH.parent / f"_{name}_{split}_".join(DATASET_PATH.name.split("_"))
+        DATASET_PATH.parent / f"{DATASET_PATH.stem}_{split}{DATASET_PATH.suffix}"
         for split in ("train", "test")
     )
 
 
 def data_splitting():
-    full_data = pd.read_parquet(DATASET_PATH)
-    # Full data
-    train_full, test_full = train_test_split(
-        full_data,
+    data = pd.read_parquet(DATASET_PATH)
+    train_split, test_split = train_test_split(
+        data,
         test_size=TEST_SIZE,
         random_state=RANDOM_STATE,
         shuffle=True,
-        stratify=full_data["label_extended"],
+        stratify=data["label_full"],
     )
-    train_path, test_path = _get_split_paths("full")
-    ## Saving and freeing memory
-    with train_path.open("wb") as train_parquet:
-        train_full.to_parquet(train_parquet, index=False)
-    del train_full
-    with test_path.open("wb") as test_parquet:
-        test_full.to_parquet(test_parquet, index=False)
-    del test_full
-    # Data groups
-    for device_type, data in full_data.groupby(by="device_type"):
-        train_path, test_path = _get_split_paths(device_type)
-        train_dev_type, test_dev_type = train_test_split(
-            data,
-            test_size=TEST_SIZE,
-            random_state=RANDOM_STATE,
-            shuffle=True,
-            stratify=data["label_extended"],
-        )
-        ## Saving and freeing memory
-        with train_path.open("wb") as train_parquet:
-            train_dev_type.to_parquet(train_parquet, index=False)
-        del train_dev_type
-        with test_path.open("wb") as test_parquet:
-            test_dev_type.to_parquet(test_parquet, index=False)
-        del test_dev_type
+    train_path, test_path = _get_split_paths()
+    train_split.to_parquet(train_path, index=False, compression="gzip")
+    test_split.to_parquet(test_path, index=False, compression="gzip")
     return
 
 
