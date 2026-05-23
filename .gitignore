@@ -2,6 +2,7 @@
 datasense/dataset/*.tar.xz
 datasense/dataset/*.csv
 datasense/dataset/checksums/
+!datasense/dataset/vif_values.csv
 
 # Sklearn's pipeline's caches
 .cache/
