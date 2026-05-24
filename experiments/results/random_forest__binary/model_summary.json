@@ -1,0 +1,39 @@
+{
+  "best_parameters": {
+    "model__criterion": "entropy",
+    "model__max_features": 0.25,
+    "model__max_leaf_nodes": 300,
+    "model__min_samples_leaf": 3,
+    "model__n_estimators": 100
+  },
+  "all_parameters": {
+    "bootstrap": false,
+    "ccp_alpha": 0.0,
+    "class_weight": {
+      "attack": 1.0,
+      "benign": 1.0
+    },
+    "criterion": "entropy",
+    "max_depth": null,
+    "max_features": 0.25,
+    "max_leaf_nodes": 300,
+    "max_samples": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 3,
+    "min_samples_split": 2,
+    "min_weight_fraction_leaf": 0.0,
+    "monotonic_cst": null,
+    "n_estimators": 100,
+    "n_jobs": null,
+    "oob_score": false,
+    "random_state": 12345,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "forest_structure": {
+    "total_n_nodes": 37922,
+    "mean_n_nodes": 379.22,
+    "mean_n_leafs": 190.11,
+    "mean_depth": 24.59
+  }
+}
