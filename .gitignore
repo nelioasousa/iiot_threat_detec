@@ -15,3 +15,6 @@ venv/
 
 # lab.py : script for testing some code snippets
 lab.py
+
+# SHAP values
+experiments/shap/shap_values/
