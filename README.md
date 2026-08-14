@@ -1,5 +1,8 @@
 # Threat Detection in IIoT Networks
 
+## To-do
+**Run experiments**: the results became outdated after some minor modifications and were removed. They can be found in previous commits in the `main` branch history (see commit `f0ef100`).
+
 ## How to Run the Codebase
 
 If the `datasense/dataset` path is empty, you must download the correct archive from the source detailed [here](/datasense/README.md). The scripts in `scripts/` (which will be run next) expect the archive corresponding to the **1-second time window**. The files must retain their original names.
